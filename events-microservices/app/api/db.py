@@ -5,7 +5,10 @@ from sqlalchemy import (Column, DateTime, Integer, MetaData, String, Table,
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 
+# Error with DATABASE_URL being none?
+# AttributeError: 'NoneType' object has no attribute '_instantiate_plugins' ???
 engine = create_engine(DATABASE_URL)
+
 metadata = MetaData()
 
 events = Table(
