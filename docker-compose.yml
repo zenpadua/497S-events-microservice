@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  events_microservices:
+    build: ./events-microservices
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ./events-microservices/:/app/
+    ports:
+      - 8006:8000
+    environment:
+      - DATABASE_URL=postgresql://Test1:Test@event_db/event_db_dev
+    depends_on:
+      - event_db
+
+  event_db:
+    image: postgres:12.1-alpine
+    volumes:
+      - postgres_data_event:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=Test1
+      - POSTGRES_PASSWORD=Test
+      - POSTGRES_DB=event_db_dev
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx_config.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - events_microservices
+
+volumes:
+  postgres_data_event:

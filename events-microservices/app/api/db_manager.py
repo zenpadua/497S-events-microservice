@@ -1,5 +1,5 @@
-from app.api.models import EventIn, EventOut, EventUpdate
-from app.api.db import events, database
+from .models import EventIn, EventOut, EventUpdate
+from .db import events, database
 
 
 async def add_event(payload: EventIn):

@@ -1,13 +1,18 @@
 from typing import List
 from fastapi import APIRouter, HTTPException
 
-from app.api.models import EventOut, EventIn, EventUpdate
-from app.api import db_manager
+from .models import EventOut, EventIn, EventUpdate
+from ..api import db_manager
 
 events = APIRouter()
 
+### Gets all events in the database
+@events.get('/')
+async def hello_world():
+    return {"Hello: World"}
+'''
 ### Gets all events in the database 
-@events.get('/', response_model=List[EventOut])
+@events.get('/')
 async def get_events():
     return await db_manager.get_all_events()
 
@@ -42,7 +47,7 @@ async def update_event(id:int, payload: EventIn):
     event_in_db = EventIn(**event)
 
     updated_event = event_in_db.copy(update=update_data)
-    return await db_manager.update_event(id, update_event)
+    return await db_manager.update_event(id, updated_event)
 
 ### Deletes an event based on id given, else returns 404
 @events.delete('/{id}', response_model=None)
@@ -50,4 +55,4 @@ async def delete_event(id: int):
     event = await db_manager.get_event(id)
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
-    return await db_manager.delete_event(id)
+    return await db_manager.delete_event(id)'''

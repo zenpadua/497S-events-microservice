@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from app.api.events import events
-from app.api.db import metadata, database, engine
+from .api.events import events
+from .api.db import metadata, database, engine
 
 metadata.create_all(engine)
 
-app = FastAPI()
+app = FastAPI(openapi_url="/api/events/openapi.json", docs_url="/api/events/docs")
 
 @app.on_event("startup")
 async def startup():
@@ -14,4 +14,4 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-app.include_router(events, prefix='/api/v1/events', tags=['events'])
+app.include_router(events, prefix='/api/events', tags=['events'])
