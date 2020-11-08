@@ -6,11 +6,6 @@ from ..api import db_manager
 
 events = APIRouter()
 
-### Gets all events in the database
-@events.get('/')
-async def hello_world():
-    return {"Hello: World"}
-'''
 ### Gets all events in the database 
 @events.get('/')
 async def get_events():
@@ -25,17 +20,19 @@ async def get_event(id: int):
         raise HTTPException(status_code=404, detail="Event not found")
     return event
 
+
 ### Creates an event
 @events.post('/', response_model=EventOut, status_code=201)
 async def create_event(payload: EventIn):
     event_id = await db_manager.add_event(payload)
 
     response = {
-        'id': id,
+        'id': event_id,
         **payload.dict()
     }
     return response
 
+'''
 ### Updates an event based on id given, else returns 404 
 @events.put('/{id}')
 async def update_event(id:int, payload: EventIn):
