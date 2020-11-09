@@ -1,13 +1,16 @@
 import os
-from databases import Database
+
 from sqlalchemy import (Column, DateTime, Integer, MetaData, String, Table,
                         create_engine, ARRAY)
 
-DATABASE_URL = os.getenv('DATABASE_URL')
+from databases import Database
+
+DATABASE_URI = os.getenv('DATABASE_URI')
+#print(DATABASE_URI)
 
 # Error with DATABASE_URL being none?
 # AttributeError: 'NoneType' object has no attribute '_instantiate_plugins' ???
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URI)
 
 metadata = MetaData()
 
@@ -20,4 +23,4 @@ events = Table(
     Column('people', ARRAY(String))
 )
 
-database = Database(DATABASE_URL)
+database = Database(DATABASE_URI)
