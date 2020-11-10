@@ -9,7 +9,7 @@ services:
     ports:
       - 8006:8000
     environment:
-      - DATABASE_URL=postgresql://Test1:Test@event_db/event_db_dev
+      - DATABASE_URI=postgresql://Test1:Test@event_db/event_db_dev
     depends_on:
       - event_db
 

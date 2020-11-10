@@ -6,10 +6,7 @@ from sqlalchemy import (Column, DateTime, Integer, MetaData, String, Table,
 from databases import Database
 
 DATABASE_URI = os.getenv('DATABASE_URI')
-#print(DATABASE_URI)
 
-# Error with DATABASE_URL being none?
-# AttributeError: 'NoneType' object has no attribute '_instantiate_plugins' ???
 engine = create_engine(DATABASE_URI)
 
 metadata = MetaData()

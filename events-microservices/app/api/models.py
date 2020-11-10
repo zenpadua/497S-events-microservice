@@ -12,6 +12,6 @@ class EventOut(EventIn):
 
 
 class EventUpdate(EventIn):
-    name: Optional[str] = None
+    title: Optional[str] = None
     description: Optional[str] = None
     people: Optional[List[str]] = None

@@ -32,9 +32,9 @@ async def create_event(payload: EventIn):
     }
     return response
 
-'''
+
 ### Updates an event based on id given, else returns 404 
-@events.put('/{id}')
+@events.patch('/{id}')
 async def update_event(id:int, payload: EventIn):
     event = await db_manager.get_event(id)
     if not event:
@@ -46,10 +46,11 @@ async def update_event(id:int, payload: EventIn):
     updated_event = event_in_db.copy(update=update_data)
     return await db_manager.update_event(id, updated_event)
 
+
 ### Deletes an event based on id given, else returns 404
 @events.delete('/{id}', response_model=None)
 async def delete_event(id: int):
     event = await db_manager.get_event(id)
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
-    return await db_manager.delete_event(id)'''
+    return await db_manager.delete_event(id)
