@@ -17,7 +17,10 @@ events = Table(
     Column('id', Integer, primary_key=True),
     Column('title', String(80)),
     Column('description', String(250)),
-    Column('people', ARRAY(String))
+    Column('people', ARRAY(String)),
+    Column('start_time', String(80)),
+    Column('end_time', String(80))
+    
 )
 
 database = Database(DATABASE_URI)
